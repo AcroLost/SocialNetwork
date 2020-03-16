@@ -9,7 +9,7 @@ const MyPosts = ({ profilePage, addPost, updatePostText }) => {
   const posts = postsData.map((item) => {
     const { id, message, likesCount } = item;
 
-    return <Post key={id} id={id} message={message} likesCount={likesCount} />
+    return <Post key={id} message={message} likesCount={likesCount} />
   });
 
   const onAddPost = () => {
