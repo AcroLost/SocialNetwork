@@ -1,67 +1,44 @@
-import React, { Component } from 'react';
-
+import React from 'react';
 import s from './Users.module.css';
 import ava from '../../image/ava.jpg';
-import * as axios from 'axios';
 import { Pagination } from 'antd';
 
+const Users = ({ usersPage, follow, unfollow, onChangePage }) => {
 
-export default class Users extends Component {
-
-  componentDidMount() {
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users/?page=${this.props.usersPage.selectedPage}&count=${this.props.usersPage.pageSize}`)
-      .then((res) => {
-        this.props.setUsers(res.data.items);
-        this.props.setTotalUserCount(res.data.totalCount);
-      });
-  }
-
-  onChangePage = (page) => {
-
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users/?page=${page}&count=${this.props.usersPage.pageSize}`)
-      .then((res) => {
-        this.props.setUsers(res.data.items)
-      });
-
-    this.props.onSelectedPage(page)
-  }
-
-  render() {
-    const { usersPage, follow, unfollow } = this.props;
     const { pageSize, totalUserCount, selectedPage } = usersPage;
 
 
     const users = usersPage.usersData.map((user) => {
-      return (
-        <div className={s.user}>
+        return (
+            <div className={s.user}>
 
-          <div>
-            <img src={user.photos.small != null
-              ? user.photos.small
-              : ava} alt="ava" />
-            <p>
-              {user.follow
-                ? <button onClick={
-                  () => unfollow(user.id)}>Unfollow</button>
-                : <button onClick={
-                  () => follow(user.id)
-                }>Follow</button>
-              }
-            </p>
-          </div>
+                <div>
+                    <img src={user.photos.small != null
+                        ? user.photos.small
+                        : ava} alt="ava" />
+                    <p>
+                        {user.follow
+                            ? <button onClick={
+                                () => unfollow(user.id)}>Unfollow</button>
+                            : <button onClick={
+                                () => follow(user.id)
+                            }>Follow</button>
+                        }
+                    </p>
+                </div>
 
-          <div>
-            <p>{user.name}</p>
-            <p>Статус: {user.status}</p>
-          </div>
+                <div>
+                    <p>{user.name}</p>
+                    <p>Статус: {user.status}</p>
+                </div>
 
-          <div>
-            <p>{"user.location.country"}</p>
-            <p>{"user.location.city"}</p>
-          </div>
+                <div>
+                    <p>{"user.location.country"}</p>
+                    <p>{"user.location.city"}</p>
+                </div>
 
-        </div>
-      );
+            </div>
+        );
     });
 
 
@@ -71,13 +48,12 @@ export default class Users extends Component {
 
     for (let i = 1; i <= pagesCount; i++) {
 
-      pages.push(i);
+        pages.push(i);
     }
 
     return (
-
-      <div>
-        {/* {
+        <div>
+            {/* {
           pages.map((page) => {
             return <span className={selectedPage === page
               ? s.item + ' ' + s.active
@@ -89,15 +65,17 @@ export default class Users extends Component {
           })
         } */}
 
-        <Pagination current={selectedPage}
-          pageSize={pageSize}
-          total={pagesCount}
-          onChange={this.onChangePage} />
+            <Pagination current={selectedPage}
+                pageSize={pageSize}
+                total={pagesCount}
+                onChange={onChangePage} />
 
-        <div className={s.users}>
-          {users}
+            <div className={s.users}>
+                {users}
+            </div>
         </div>
-      </div>
     );
-  }
 }
+
+
+export default Users;
