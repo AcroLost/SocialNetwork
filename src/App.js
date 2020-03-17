@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+import 'antd/dist/antd.css';
+
 
 import Navbar from './components/Navbar/Navbar';
 import Profile from './components/Profile/Profile';
