@@ -30,15 +30,18 @@ class UsersContainer extends Component {
 
     render() {
 
-        if (this.props.usersPage.isLoading) {
+        const { usersPage, follow, unfollow } = this.props
+        const { isLoading } = usersPage
+
+        if (isLoading) {
             return <Spin size="large" />
         }
 
         return (
 
-            <Users usersPage={this.props.usersPage}
-                follow={this.props.follow}
-                unfollow={this.props.unfollow}
+            <Users usersPage={usersPage}
+                follow={follow}
+                unfollow={unfollow}
                 onChangePage={this.onChangePage} />
 
         );

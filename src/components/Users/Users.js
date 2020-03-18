@@ -2,6 +2,7 @@ import React from 'react';
 import s from './Users.module.css';
 import ava from '../../image/ava.jpg';
 import { Pagination } from 'antd';
+import { NavLink } from 'react-router-dom';
 
 const Users = ({ usersPage, follow, unfollow, onChangePage }) => {
 
@@ -13,9 +14,11 @@ const Users = ({ usersPage, follow, unfollow, onChangePage }) => {
             <div className={s.user}>
 
                 <div>
-                    <img src={user.photos.small != null
-                        ? user.photos.small
-                        : ava} alt="ava" />
+                    <NavLink to={`/profile/${user.id}`}>
+                        <img src={user.photos.small != null
+                            ? user.photos.small
+                            : ava} alt="ava" />
+                    </NavLink>
                     <p>
                         {user.follow
                             ? <button onClick={
@@ -37,7 +40,7 @@ const Users = ({ usersPage, follow, unfollow, onChangePage }) => {
                     <p>{"user.location.city"}</p>
                 </div>
 
-            </div>
+            </div >
         );
     });
 

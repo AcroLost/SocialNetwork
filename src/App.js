@@ -4,11 +4,11 @@ import 'antd/dist/antd.css';
 
 
 import Navbar from './components/Navbar/Navbar';
-import Profile from './components/Profile/Profile';
 import Header from './components/Header/Header';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import { Route, BrowserRouter } from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer';
+import ProfileContainer from './components/Profile/ProfileContainer';
 
 
 const App = () => {
@@ -19,9 +19,9 @@ const App = () => {
         <Navbar />
         <div className="app-wrapper-content">
 
-          <Route path='/profile' render={() =>
+          <Route path='/profile/:userId?' render={() =>
 
-            <Profile />
+            <ProfileContainer />
           }
 
           />
