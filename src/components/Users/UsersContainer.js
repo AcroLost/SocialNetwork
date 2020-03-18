@@ -1,23 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Users from './Users';
-import { followAC, unfollowAC, setUsersAC, setSelectedPageAC, setTotalUserCount } from '../../redux/usersReducer';
+import { followAC, unfollowAC, setUsersAC, setSelectedPageAC, setTotalUserCount, isLoadingAC } from '../../redux/usersReducer';
 import * as axios from 'axios';
+import { Spin } from 'antd';
 
 class UsersContainer extends Component {
 
     componentDidMount() {
+        this.props.isLoading(true);
         axios.get(`https://social-network.samuraijs.com/api/1.0/users/?page=${this.props.usersPage.selectedPage}&count=${this.props.usersPage.pageSize}`)
             .then((res) => {
                 this.props.setUsers(res.data.items);
                 this.props.setTotalUserCount(res.data.totalCount);
+                this.props.isLoading(false);
             });
     }
 
     onChangePage = (page) => {
-
+        this.props.isLoading(true);
         axios.get(`https://social-network.samuraijs.com/api/1.0/users/?page=${page}&count=${this.props.usersPage.pageSize}`)
             .then((res) => {
+                this.props.isLoading(false);
                 this.props.setUsers(res.data.items)
             });
 
@@ -26,11 +30,17 @@ class UsersContainer extends Component {
 
     render() {
 
+        if (this.props.usersPage.isLoading) {
+            return <Spin size="large" />
+        }
+
         return (
+
             <Users usersPage={this.props.usersPage}
                 follow={this.props.follow}
                 unfollow={this.props.unfollow}
                 onChangePage={this.onChangePage} />
+
         );
     }
 }
@@ -63,7 +73,11 @@ const mapDispatchToProps = (dispatch) => {
 
         setTotalUserCount: (totalUserCount) => {
             dispatch(setTotalUserCount(totalUserCount))
-        }
+        },
+
+        isLoading: (isLoading) => {
+            dispatch(isLoadingAC(isLoading))
+        },
     }
 }
 

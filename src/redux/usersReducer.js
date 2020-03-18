@@ -5,6 +5,8 @@ const SET_USERS = 'SET_USERS';
 const SET_SELECTED_PAGE = 'SET_SELECTED_PAGE';
 const SET_TOTAL_USER_COUNT = 'SET_TOTAL_USER_COUNT';
 
+const IS_LOADING = 'IS_LOADING';
+
 const initialState = {
 
     usersData: [
@@ -12,7 +14,8 @@ const initialState = {
     ],
     pageSize: 5,
     totalUserCount: 0,
-    selectedPage: 1
+    selectedPage: 1,
+    isLoading: false
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -70,6 +73,13 @@ const usersReducer = (state = initialState, action) => {
                 totalUserCount: action.totalUserCount
             }
 
+        case IS_LOADING:
+
+            return {
+                ...state,
+                isLoading: action.isLoading
+            }
+
         default:
             return state;
 
@@ -94,6 +104,10 @@ export const setSelectedPageAC = (selectedPage) => {
 
 export const setTotalUserCount = (totalUserCount) => {
     return { type: SET_TOTAL_USER_COUNT, totalUserCount }
+}
+
+export const isLoadingAC = (isLoading) => {
+    return { type: IS_LOADING, isLoading }
 }
 
 export default usersReducer;
