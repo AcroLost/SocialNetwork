@@ -4,33 +4,55 @@ import Users from './Users';
 import { followAC, unfollowAC, setUsersAC, setSelectedPageAC, setTotalUserCount, isLoadingAC } from '../../redux/usersReducer';
 import * as axios from 'axios';
 import { Spin } from 'antd';
+import { getUsers, followUser, unfollowUser } from '../../api/api';
 
 class UsersContainer extends Component {
 
     componentDidMount() {
         this.props.isLoading(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users/?page=${this.props.usersPage.selectedPage}&count=${this.props.usersPage.pageSize}`)
-            .then((res) => {
-                this.props.setUsers(res.data.items);
-                this.props.setTotalUserCount(res.data.totalCount);
+
+        getUsers(this.props.usersPage.selectedPage, this.props.usersPage.pageSize)
+            .then((data) => {
+                this.props.setUsers(data.items);
+                this.props.setTotalUserCount(data.totalCount);
                 this.props.isLoading(false);
             });
     }
 
     onChangePage = (page) => {
         this.props.isLoading(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users/?page=${page}&count=${this.props.usersPage.pageSize}`)
-            .then((res) => {
+
+        getUsers(page, this.props.usersPage.pageSize)
+            .then((data) => {
                 this.props.isLoading(false);
-                this.props.setUsers(res.data.items)
+                this.props.setUsers(data.items)
             });
 
         this.props.onSelectedPage(page)
     }
 
+    follow = (userId) => {
+        followUser(userId)
+            .then((res) => {
+
+                if (res.data.resultCode == 0) {
+                    this.props.follow(userId)
+                }
+            });
+    }
+
+    unfollow = (userId) => {
+        unfollowUser(userId)
+            .then((res) => {
+                if (res.data.resultCode == 0) {
+                    this.props.unfollow(userId)
+                }
+            });
+    }
+
     render() {
 
-        const { usersPage, follow, unfollow } = this.props
+        const { usersPage } = this.props
         const { isLoading } = usersPage
 
         if (isLoading) {
@@ -40,8 +62,8 @@ class UsersContainer extends Component {
         return (
 
             <Users usersPage={usersPage}
-                follow={follow}
-                unfollow={unfollow}
+                follow={this.follow}
+                unfollow={this.unfollow}
                 onChangePage={this.onChangePage} />
 
         );
