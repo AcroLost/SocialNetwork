@@ -2,16 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Users from './Users';
 import { followAC, unfollowAC, setUsersAC, setSelectedPageAC, setTotalUserCount, isLoadingAC } from '../../redux/usersReducer';
-import * as axios from 'axios';
 import { Spin } from 'antd';
-import { getUsers, followUser, unfollowUser } from '../../api/api';
+import { usersAPI } from '../../api/api';
 
 class UsersContainer extends Component {
 
     componentDidMount() {
         this.props.isLoading(true);
 
-        getUsers(this.props.usersPage.selectedPage, this.props.usersPage.pageSize)
+        usersAPI.getUsers(this.props.usersPage.selectedPage, this.props.usersPage.pageSize)
             .then((data) => {
                 this.props.setUsers(data.items);
                 this.props.setTotalUserCount(data.totalCount);
@@ -22,7 +21,7 @@ class UsersContainer extends Component {
     onChangePage = (page) => {
         this.props.isLoading(true);
 
-        getUsers(page, this.props.usersPage.pageSize)
+        usersAPI.getUsers(page, this.props.usersPage.pageSize)
             .then((data) => {
                 this.props.isLoading(false);
                 this.props.setUsers(data.items)
@@ -32,7 +31,7 @@ class UsersContainer extends Component {
     }
 
     follow = (userId) => {
-        followUser(userId)
+        usersAPI.followUser(userId)
             .then((res) => {
 
                 if (res.data.resultCode == 0) {
@@ -42,7 +41,7 @@ class UsersContainer extends Component {
     }
 
     unfollow = (userId) => {
-        unfollowUser(userId)
+        usersAPI.unfollowUser(userId)
             .then((res) => {
                 if (res.data.resultCode == 0) {
                     this.props.unfollow(userId)
