@@ -1,107 +1,87 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+import {
+    followAC,
+    setCurrentPageAC,
+    setUsersAC,
+    setTotalUsersCountAC,
+    isLoadingAC,
+    unfollowAC, toggleFollowingProgressAC
+} from '../../redux/usersReducer';
+
 import Users from './Users';
-import { followAC, unfollowAC, setUsersAC, setSelectedPageAC, setTotalUserCount, isLoadingAC } from '../../redux/usersReducer';
+
+import { usersAPI } from "../../api/api";
 import { Spin } from 'antd';
-import { usersAPI } from '../../api/api';
 
-class UsersContainer extends Component {
 
+
+class UsersContainer extends React.Component {
     componentDidMount() {
         this.props.isLoading(true);
 
-        usersAPI.getUsers(this.props.usersPage.selectedPage, this.props.usersPage.pageSize)
-            .then((data) => {
-                this.props.setUsers(data.items);
-                this.props.setTotalUserCount(data.totalCount);
-                this.props.isLoading(false);
-            });
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+
+            this.props.isLoading(false);
+            this.props.setUsers(data.items);
+            this.props.setTotalUsersCount(data.totalCount);
+        });
     }
 
-    onChangePage = (page) => {
+    onPageChanged = (pageNumber) => {
+        this.props.setCurrentPage(pageNumber);
         this.props.isLoading(true);
 
-        usersAPI.getUsers(page, this.props.usersPage.pageSize)
-            .then((data) => {
+        usersAPI.getUsers(pageNumber, this.props.pageSize)
+            .then(data => {
                 this.props.isLoading(false);
-                this.props.setUsers(data.items)
-            });
-
-        this.props.onSelectedPage(page)
-    }
-
-    follow = (userId) => {
-        usersAPI.followUser(userId)
-            .then((res) => {
-
-                if (res.data.resultCode == 0) {
-                    this.props.follow(userId)
-                }
-            });
-    }
-
-    unfollow = (userId) => {
-        usersAPI.unfollowUser(userId)
-            .then((res) => {
-                if (res.data.resultCode == 0) {
-                    this.props.unfollow(userId)
-                }
+                this.props.setUsers(data.items);
             });
     }
 
     render() {
-
-        const { usersPage } = this.props
-        const { isLoading } = usersPage
-
-        if (isLoading) {
-            return <Spin size="large" />
-        }
-
-        return (
-
-            <Users usersPage={usersPage}
-                follow={this.follow}
-                unfollow={this.unfollow}
-                onChangePage={this.onChangePage} />
-
-        );
+        return <>
+            {this.props.isFetching ? <Spin size="large" /> : null}
+            <Users
+                usersPage={this.props.usersPage}
+                onPageChanged={this.onPageChanged}
+                follow={this.props.follow}
+                unfollow={this.props.unfollow}
+                toggleFollowingProgress={this.props.toggleFollowingProgress}
+            />
+        </>
     }
 }
 
 const mapStateToProps = (state) => {
-
     return {
         usersPage: state.usersPage
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
-
     return {
         follow: (userId) => {
             dispatch(followAC(userId))
         },
-
         unfollow: (userId) => {
             dispatch(unfollowAC(userId))
         },
-
         setUsers: (users) => {
             dispatch(setUsersAC(users))
         },
-
-        onSelectedPage: (page) => {
-            dispatch(setSelectedPageAC(page))
+        setCurrentPage: (currentPage) => {
+            dispatch(setCurrentPageAC(currentPage))
         },
-
-        setTotalUserCount: (totalUserCount) => {
-            dispatch(setTotalUserCount(totalUserCount))
+        setTotalUsersCount: (totalUsersCount) => {
+            dispatch(setTotalUsersCountAC(totalUsersCount))
         },
-
         isLoading: (isLoading) => {
             dispatch(isLoadingAC(isLoading))
         },
+        toggleFollowingProgress: (isLoading, userId) => {
+            dispatch(toggleFollowingProgressAC(isLoading, userId))
+        }
     }
 }
 

@@ -1,90 +1,67 @@
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
-
-const SET_SELECTED_PAGE = 'SET_SELECTED_PAGE';
-const SET_TOTAL_USER_COUNT = 'SET_TOTAL_USER_COUNT';
-
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 const IS_LOADING = 'IS_LOADING';
+const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
 
-const initialState = {
-
-    usersData: [
-
-    ],
+let initialState = {
+    users: [],
     pageSize: 5,
-    totalUserCount: 0,
-    selectedPage: 1,
-    isLoading: false
-}
+    totalUsersCount: 0,
+    currentPage: 1,
+    isLoading: true,
+    followingInProgress: []
+};
 
 const usersReducer = (state = initialState, action) => {
-
     switch (action.type) {
-
         case FOLLOW:
-
             return {
-                usersData: state.usersData.map((user) => {
-
-                    if (user.id === action.userId) {
-                        return {
-                            ...user,
-                            followed: true
-                        }
+                ...state,
+                users: state.users.map(u => {
+                    if (u.id === action.userId) {
+                        return { ...u, followed: true }
                     }
-                    return user
+                    return u;
                 })
             }
-
         case UNFOLLOW:
-
             return {
-                usersData: state.usersData.map((user) => {
-
-                    if (user.id === action.userId) {
-                        return {
-                            ...user,
-                            followed: false
-                        }
+                ...state,
+                users: state.users.map(u => {
+                    if (u.id === action.userId) {
+                        return { ...u, followed: false }
                     }
-                    return user
+                    return u;
                 })
             }
-
-        case SET_USERS:
-
+        case SET_USERS: {
+            return { ...state, users: action.users }
+        }
+        case SET_CURRENT_PAGE: {
+            return { ...state, currentPage: action.currentPage }
+        }
+        case SET_TOTAL_USERS_COUNT: {
+            return { ...state, totalUsersCount: action.totalUsersCount }
+        }
+        case IS_LOADING: {
+            return { ...state, isLoading: action.isLoading }
+        }
+        case TOGGLE_IS_FOLLOWING_PROGRESS: {
             return {
                 ...state,
-                usersData: action.users
+                followingInProgress: action.isLoading
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(id => id != action.userId)
             }
-
-        case SET_SELECTED_PAGE:
-
-            return {
-                ...state,
-                selectedPage: action.selectedPage
-            }
-
-        case SET_TOTAL_USER_COUNT:
-
-            return {
-                ...state,
-                totalUserCount: action.totalUserCount
-            }
-
-        case IS_LOADING:
-
-            return {
-                ...state,
-                isLoading: action.isLoading
-            }
-
+        }
         default:
             return state;
-
     }
 }
+
 
 export const followAC = (userId) => {
     return { type: FOLLOW, userId }
@@ -98,16 +75,20 @@ export const setUsersAC = (users) => {
     return { type: SET_USERS, users }
 }
 
-export const setSelectedPageAC = (selectedPage) => {
-    return { type: SET_SELECTED_PAGE, selectedPage }
+export const setCurrentPageAC = (currentPage) => {
+    return { type: SET_CURRENT_PAGE, currentPage }
 }
 
-export const setTotalUserCount = (totalUserCount) => {
-    return { type: SET_TOTAL_USER_COUNT, totalUserCount }
+export const setTotalUsersCountAC = (totalUsersCount) => {
+    return { type: SET_TOTAL_USERS_COUNT, totalUsersCount }
 }
 
 export const isLoadingAC = (isLoading) => {
     return { type: IS_LOADING, isLoading }
+}
+
+export const toggleFollowingProgressAC = (isLoading, userId) => {
+    return { type: TOGGLE_IS_FOLLOWING_PROGRESS, isLoading, userId }
 }
 
 export default usersReducer;
