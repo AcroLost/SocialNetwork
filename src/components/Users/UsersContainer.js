@@ -10,8 +10,8 @@ import {
 
 import Users from './Users';
 
-import { usersAPI } from "../../api/api";
 import { Spin } from 'antd';
+import { Redirect } from 'react-router-dom';
 
 
 
@@ -27,8 +27,12 @@ class UsersContainer extends React.Component {
     }
 
     render() {
+
         if (this.props.usersPage.isLoading) {
             return <Spin size="large" />
+        }
+        if (!this.props.isAuth) {
+            return <Redirect to='/login' />
         }
         return (
             <Users
@@ -44,7 +48,8 @@ class UsersContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        usersPage: state.usersPage
+        usersPage: state.usersPage,
+        isAuth: state.auth.isAuth
     }
 }
 
