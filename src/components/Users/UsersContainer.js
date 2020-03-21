@@ -12,6 +12,7 @@ import Users from './Users';
 
 import { Spin } from 'antd';
 import { Redirect } from 'react-router-dom';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 
 
 
@@ -31,9 +32,7 @@ class UsersContainer extends React.Component {
         if (this.props.usersPage.isLoading) {
             return <Spin size="large" />
         }
-        if (!this.props.isAuth) {
-            return <Redirect to='/login' />
-        }
+
         return (
             <Users
                 usersPage={this.props.usersPage}
@@ -49,7 +48,6 @@ class UsersContainer extends React.Component {
 const mapStateToProps = (state) => {
     return {
         usersPage: state.usersPage,
-        isAuth: state.auth.isAuth
     }
 }
 
