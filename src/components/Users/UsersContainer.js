@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-    followAC,
+    follow,
     setCurrentPageAC,
     setUsersAC,
     setTotalUsersCountAC,
-    isLoadingAC,
-    unfollowAC, toggleFollowingProgressAC
+    unfollow, toggleFollowingProgressAC, getUsers,
 } from '../../redux/usersReducer';
 
 import Users from './Users';
@@ -17,31 +16,21 @@ import { Spin } from 'antd';
 
 
 class UsersContainer extends React.Component {
+
     componentDidMount() {
-        this.props.isLoading(true);
-
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-
-            this.props.isLoading(false);
-            this.props.setUsers(data.items);
-            this.props.setTotalUsersCount(data.totalCount);
-        });
+        this.props.getUsers(this.props.usersPage.currentPage, this.props.usersPage.pageSize);
     }
 
     onPageChanged = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
-        this.props.isLoading(true);
-
-        usersAPI.getUsers(pageNumber, this.props.pageSize)
-            .then(data => {
-                this.props.isLoading(false);
-                this.props.setUsers(data.items);
-            });
+        this.props.getUsers(pageNumber, this.props.usersPage.pageSize);
     }
 
     render() {
-        return <>
-            {this.props.isFetching ? <Spin size="large" /> : null}
+        if (this.props.usersPage.isLoading) {
+            return <Spin size="large" />
+        }
+        return (
             <Users
                 usersPage={this.props.usersPage}
                 onPageChanged={this.onPageChanged}
@@ -49,7 +38,7 @@ class UsersContainer extends React.Component {
                 unfollow={this.props.unfollow}
                 toggleFollowingProgress={this.props.toggleFollowingProgress}
             />
-        </>
+        );
     }
 }
 
@@ -62,10 +51,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         follow: (userId) => {
-            dispatch(followAC(userId))
+            dispatch(follow(userId))
         },
         unfollow: (userId) => {
-            dispatch(unfollowAC(userId))
+            dispatch(unfollow(userId))
         },
         setUsers: (users) => {
             dispatch(setUsersAC(users))
@@ -76,11 +65,11 @@ const mapDispatchToProps = (dispatch) => {
         setTotalUsersCount: (totalUsersCount) => {
             dispatch(setTotalUsersCountAC(totalUsersCount))
         },
-        isLoading: (isLoading) => {
-            dispatch(isLoadingAC(isLoading))
-        },
         toggleFollowingProgress: (isLoading, userId) => {
             dispatch(toggleFollowingProgressAC(isLoading, userId))
+        },
+        getUsers: (currentPage, pageSize) => {
+            dispatch(getUsers(currentPage, pageSize))
         }
     }
 }

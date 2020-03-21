@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import { usersAPI } from '../../api/api';
 import { Button, Pagination } from 'antd';
 
-let Users = ({ usersPage, onPageChanged, follow, unfollow, toggleFollowingProgress }) => {
+const Users = ({ usersPage, onPageChanged, follow, unfollow, toggleFollowingProgress }) => {
 
   const { totalUsersCount, pageSize, currentPage, users, followingInProgress } = usersPage;
 
@@ -22,12 +22,6 @@ let Users = ({ usersPage, onPageChanged, follow, unfollow, toggleFollowingProgre
       <Pagination current={currentPage}
         onChange={onPageChanged}
         total={totalUsersCount} />
-      {/* {pages.map(p => {
-        return <span className={currentPage === p && s.selectedPage}
-          onClick={(e) => {
-            onPageChanged(p);
-          }}>{p}</span>
-      })} */}
     </div>
     {
       users.map(user => <div className={s.user} key={user.id}>
@@ -40,31 +34,18 @@ let Users = ({ usersPage, onPageChanged, follow, unfollow, toggleFollowingProgre
 
           <p>
             {user.followed
-              ? <Button type="primary" loading={followingInProgress.some(id => id === user.id)} onClick={() => {
-                toggleFollowingProgress(true, user.id);
-                usersAPI.unfollowUser(user.id)
-                  .then(response => {
-                    if (response.data.resultCode === 0) {
-                      unfollow(user.id);
-                    }
-                    toggleFollowingProgress(false, user.id);
-                  });
 
+              ? <Button type="primary"
+                loading={followingInProgress.some(id => id === user.id)} onClick={() => {
 
+                  unfollow(user.id)
+                }}>Unfollow</Button>
 
-              }}>Unfollow</Button>
-              : <Button type="primary" loading={followingInProgress.some(id => id === user.id)} onClick={() => {
-                toggleFollowingProgress(true, user.id);
-                usersAPI.followUser(user.id)
-                  .then(response => {
-                    if (response.data.resultCode == 0) {
-                      follow(user.id);
-                    }
-                    toggleFollowingProgress(false, user.id);
-                  });
+              : <Button type="primary"
+                loading={followingInProgress.some(id => id === user.id)} onClick={() => {
 
-
-              }}>Follow</Button>}
+                  follow(user.id)
+                }}>Follow</Button>}
 
           </p>
         </div>
