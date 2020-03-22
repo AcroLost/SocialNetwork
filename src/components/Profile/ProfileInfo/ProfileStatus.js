@@ -32,6 +32,15 @@ export default class ProfileStatus extends Component {
         this.props.updateUserStatus(this.state.status)
     }
 
+    componentDidUpdate(prevProps) {
+
+        if (prevProps.status !== this.props.status) {
+            this.setState({
+                status: this.props.status
+            });
+        }
+    }
+
     render() {
 
         const { status } = this.state;
@@ -45,7 +54,8 @@ export default class ProfileStatus extends Component {
                         value={status}
                         onChange={this.changeStatus} />
 
-                    : <span onClick={this.activateMode}> {this.props.status || "Status will be here"}</span>
+                    : <span className={s.status}
+                        onClick={this.activateMode}> {status || "Status will be here"}</span>
                 }
 
             </div>

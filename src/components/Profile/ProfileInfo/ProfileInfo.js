@@ -3,6 +3,7 @@ import s from './ProfileInfo.module.css';
 import { Spin } from 'antd';
 import ProfileStatus from './ProfileStatus';
 
+import userPhoto from '../../../image/ava.jpg';
 
 const ProfileInfo = ({ profile, updateUserStatus, status }) => {
 
@@ -11,12 +12,12 @@ const ProfileInfo = ({ profile, updateUserStatus, status }) => {
   }
 
   return (
-    <div>
-      <div>
-        <img src={profile.photos.large} alt="ava" />
+    <div className={s.profileInfo}>
+      <div className={s.profilePhoto}>
+        <img src={profile.photos.large || userPhoto} alt="ava" />
       </div>
       <div className={s.descriptionBlock}>
-        ava + description
+        description
       </div>
 
       <ProfileStatus updateUserStatus={updateUserStatus}
