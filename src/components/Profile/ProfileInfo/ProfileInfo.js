@@ -4,7 +4,7 @@ import { Spin } from 'antd';
 import ProfileStatus from './ProfileStatus';
 
 
-const ProfileInfo = ({ profile }) => {
+const ProfileInfo = ({ profile, updateUserStatus, status }) => {
 
   if (!profile) {
     return <Spin size="large" />
@@ -19,7 +19,8 @@ const ProfileInfo = ({ profile }) => {
         ava + description
       </div>
 
-      <ProfileStatus />
+      <ProfileStatus updateUserStatus={updateUserStatus}
+        status={status} />
 
     </div>
   )

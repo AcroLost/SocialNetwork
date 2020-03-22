@@ -5,33 +5,47 @@ export default class ProfileStatus extends Component {
 
     state = {
         editMode: false,
-        statusValue: 'I\'m okey'
+        status: this.props.status
     }
 
-    changeInputValue = (event) => {
+    changeStatus = (event) => {
 
         let text = event.target.value;
         this.setState({
-            statusValue: text
+            status: text
+        });
+
+    }
+
+    activateMode = () => {
+
+        this.setState({
+            editMode: !this.state.editMode
         });
     }
 
-    changeMode = () => {
+    deactivateMode = () => {
+
         this.setState({
             editMode: !this.state.editMode
-        })
+        });
+        this.props.updateUserStatus(this.state.status)
     }
 
     render() {
 
+        const { status } = this.state;
+
         return (
             <div>Статус:
                 {this.state.editMode
+
                     ? <input autoFocus
-                        onBlur={this.changeMode}
-                        value={this.state.statusValue}
-                        onChange={this.changeInputValue} />
-                    : <span onClick={this.changeMode}> {this.state.statusValue}</span>
+                        onBlur={this.deactivateMode}
+                        value={status}
+                        onChange={this.changeStatus} />
+
+                    : <span onClick={this.activateMode}> {this.props.status || "Status will be here"}</span>
                 }
 
             </div>

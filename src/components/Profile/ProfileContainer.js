@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Profile from './Profile';
-import { setUserProfile } from '../../redux/profileReducer';
+import { setUserProfile, setUserStatusThunk, updateUserStatusThunk } from '../../redux/profileReducer';
 import { withRouter } from 'react-router-dom';
-import { usersAPI } from '../../api/api';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+
 import { compose } from 'redux';
 
 class ProfileContainer extends Component {
@@ -13,21 +12,26 @@ class ProfileContainer extends Component {
         let userId = this.props.match.params.userId;
 
         if (!userId) {
-            userId = 2
+            userId = 5256
         }
         this.props.setUserProfile(userId);
+        this.props.setUserStatus(userId);
     }
 
     render() {
         return (
-            <Profile profile={this.props.profile} />
+            <Profile profile={this.props.profile}
+                status={this.props.status}
+                updateUserStatus={this.props.updateUserStatus} />
         );
     }
 }
 
 const mapStateToProps = (state) => {
+
     return {
-        profile: state.profilePage.profile
+        profile: state.profilePage.profile,
+        status: state.profilePage.status
     }
 }
 
@@ -35,6 +39,14 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setUserProfile: (userId) => {
             dispatch(setUserProfile(userId))
+        },
+
+        setUserStatus: (userId) => {
+            dispatch(setUserStatusThunk(userId))
+        },
+
+        updateUserStatus: (status) => {
+            dispatch(updateUserStatusThunk(status))
         }
     }
 }
