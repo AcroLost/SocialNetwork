@@ -1,12 +1,17 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
 import LoginForm from './LoginForm/LoginForm';
+import { connect } from 'react-redux';
+import { logInUser } from '../../redux/authReducer';
+import { Redirect } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({ logInUser, isAuth }) => {
 
-    const onSubmit = (dataSet) => {
-        console.log(dataSet);
-        //AJAX QUERY
+    const onSubmit = ({ email, password, rememberMe }) => {
+        logInUser(email, password, rememberMe);
+    }
+
+    if (isAuth) {
+        return <Redirect to='/profile' />
     }
 
     return (
@@ -17,5 +22,13 @@ const Login = () => {
     );
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+
+    return {
+        isAuth: state.auth.isAuth
+    }
+}
+
+
+export default connect(mapStateToProps, { logInUser })(Login);
 

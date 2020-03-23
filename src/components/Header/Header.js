@@ -2,11 +2,9 @@ import React from 'react';
 import s from './Header.module.css';
 import { NavLink } from 'react-router-dom';
 
-const Header = ({ auth }) => {
+const Header = ({ auth, logOutUser }) => {
 
-    const { data, isAuth } = auth;
-    const { login, email } = data
-    console.log(auth)
+    const { email, login, isAuth } = auth;
 
     return <header className={s.header}>
         <img src='https://upload.wikimedia.org/wikipedia/commons/b/be/Lineage_OS_Logo.png' alt="logo" />
@@ -14,7 +12,12 @@ const Header = ({ auth }) => {
 
         <div className={s.loginBlock}>
             {isAuth
-                ? login
+                ? <div>
+                    <span>{login} </span>
+                    <span>||</span>
+                    <span className={s.logout} onClick={logOutUser}> Log out</span>
+                </div>
+
                 : <NavLink to={'/login'}>
                     Login
                   </NavLink>}

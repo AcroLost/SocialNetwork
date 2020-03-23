@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import * as axios from 'axios';
 import Header from './Header';
 import { connect } from 'react-redux';
-import { setUserData } from '../../redux/authReducer';
-import { usersAPI } from '../../api/api';
+import { setUserData, logOutUser } from '../../redux/authReducer';
 
 
 class HeaderContainer extends Component {
@@ -13,9 +11,9 @@ class HeaderContainer extends Component {
     }
 
     render() {
-        const { auth } = this.props;
 
-        return <Header auth={auth} />
+        return <Header auth={this.props.auth}
+            logOutUser={this.props.logOutUser} />
     }
 }
 
@@ -25,12 +23,6 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        setUserData: () => {
-            dispatch(setUserData())
-        }
-    }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainer);
+
+export default connect(mapStateToProps, { setUserData, logOutUser })(HeaderContainer);
