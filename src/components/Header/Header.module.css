@@ -20,6 +20,11 @@
     text-decoration: underline;
 }
 
+.userName {
+    font-size: 18px;
+    font-weight: 600;
+}
+
 .logout {
     cursor: pointer;
 }

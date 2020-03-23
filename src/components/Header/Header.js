@@ -13,7 +13,7 @@ const Header = ({ auth, logOutUser }) => {
         <div className={s.loginBlock}>
             {isAuth
                 ? <div>
-                    <span>{login} </span>
+                    <span className={s.userName}>{login} </span>
                     <span>||</span>
                     <span className={s.logout} onClick={logOutUser}> Log out</span>
                 </div>

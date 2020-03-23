@@ -1,20 +1,34 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import 'antd/dist/antd.css';
 
 
 import Navbar from './components/Navbar/Navbar';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
-import { Route, BrowserRouter } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
+import { connect } from 'react-redux';
+import { initializeApp } from './redux/appReducer';
+import { compose } from 'redux';
+import { Spin } from 'antd';
 
+class App extends Component {
 
-const App = () => {
-  return (
-    <BrowserRouter>
+  componentDidMount() {
+    this.props.initializeApp()
+  }
+
+  render() {
+
+    if (!this.props.initialized) {
+      return <Spin size='large' />
+    }
+
+    return (
+
       <div className='app-wrapper'>
         <HeaderContainer />
         <Navbar />
@@ -38,8 +52,16 @@ const App = () => {
 
         </div>
       </div>
-    </BrowserRouter>
-  );
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    initialized: state.app.initialized
+  }
+}
+
+export default compose(
+  withRouter,
+  connect(mapStateToProps, { initializeApp }))(App);

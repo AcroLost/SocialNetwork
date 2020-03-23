@@ -4,10 +4,17 @@ import { Field, reduxForm } from 'redux-form';
 import { Input } from '../../common/FormsControls/FormsControls';
 import { required } from '../../../utils/validators/validators';
 
+import s from '../../../components/common/FormsControls/FormsControls.module.css'
+
 let LoginForm = (props) => {
 
     return (
         <form onSubmit={props.handleSubmit}>
+            {props.error &&
+                <div className={s.errorBlock}>
+                    {props.error}
+                </div>
+            }
             <span>
                 <Field name='email' component={Input}
                     placeholder={'Login'} validate={required} />
