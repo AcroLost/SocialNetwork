@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
-import { Field, reduxForm } from 'redux-form';
+import AddNewPostForm from './AddNewPostForm/AddNewPostForm';
 
 const MyPosts = ({ profilePage, addPost }) => {
 
@@ -32,17 +32,3 @@ const MyPosts = ({ profilePage, addPost }) => {
 
 export default MyPosts;
 
-let AddNewPostForm = (props) => {
-  return (
-
-    <form onSubmit={props.handleSubmit}>
-      <div>
-        <Field name='postText' component='textarea' />
-      </div>
-
-      <button>Добавить пост</button>
-    </form>
-  );
-}
-
-AddNewPostForm = reduxForm({ form: 'addNewPostForm' })(AddNewPostForm);
