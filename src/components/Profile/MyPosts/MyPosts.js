@@ -3,7 +3,7 @@ import s from './MyPosts.module.css';
 import Post from './Post/Post';
 import AddNewPostForm from './AddNewPostForm/AddNewPostForm';
 
-const MyPosts = ({ profilePage, addPost }) => {
+const MyPosts = React.memo(({ profilePage, addPost }) => {
 
   const { postsData } = profilePage;
 
@@ -28,7 +28,7 @@ const MyPosts = ({ profilePage, addPost }) => {
       </div>
     </div>
   );
-}
+});
 
 export default MyPosts;
 
