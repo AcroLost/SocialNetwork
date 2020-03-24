@@ -11,35 +11,41 @@ import {
 import Users from './Users';
 
 import { Spin } from 'antd';
-import { Redirect } from 'react-router-dom';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+
+import { getUsersList, getTotalUsersCount, getPageSize, getFollowingInProgress, getCurrentPage, getIsLoading } from '../../redux/users-selectors';
 
 
 
 class UsersContainer extends React.Component {
 
     componentDidMount() {
-        this.props.getUsers(this.props.usersPage.currentPage, this.props.usersPage.pageSize);
+        this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
 
     onPageChanged = (pageNumber) => {
+        this.props.getUsers(pageNumber, this.props.pageSize);
         this.props.setCurrentPage(pageNumber);
-        this.props.getUsers(pageNumber, this.props.usersPage.pageSize);
     }
 
     render() {
 
-        if (this.props.usersPage.isLoading) {
+        const { users, totalUsersCount, pageSize, currentPage, followingInProgress, isLoading, follow, unfollow, toggleFollowingProgress } = this.props
+
+        if (isLoading) {
             return <Spin size="large" />
         }
 
         return (
             <Users
-                usersPage={this.props.usersPage}
+                users={users}
+                totalUsersCount={totalUsersCount}
+                pageSize={pageSize}
+                currentPage={currentPage}
+                followingInProgress={followingInProgress}
                 onPageChanged={this.onPageChanged}
-                follow={this.props.follow}
-                unfollow={this.props.unfollow}
-                toggleFollowingProgress={this.props.toggleFollowingProgress}
+                follow={follow}
+                unfollow={unfollow}
+                toggleFollowingProgress={toggleFollowingProgress}
             />
         );
     }
@@ -47,7 +53,12 @@ class UsersContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        usersPage: state.usersPage,
+        users: getUsersList(state),
+        totalUsersCount: getTotalUsersCount(state),
+        pageSize: getPageSize(state),
+        currentPage: getCurrentPage(state),
+        followingInProgress: getFollowingInProgress(state),
+        isLoading: getIsLoading(state)
     }
 }
 

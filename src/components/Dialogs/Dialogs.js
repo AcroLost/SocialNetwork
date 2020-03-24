@@ -4,7 +4,6 @@ import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 
-import { Field, reduxForm } from 'redux-form';
 import AddNewMessageForm from './Message/AddNewMessageForm/AddNewMessageForm';
 
 const Dialogs = ({ dialogsPage, sendMessage }) => {

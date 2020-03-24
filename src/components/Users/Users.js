@@ -2,19 +2,12 @@ import React from 'react';
 import s from "./Users.module.css";
 import userPhoto from "../../image/ava.jpg";
 import { NavLink } from "react-router-dom";
-import { usersAPI } from '../../api/api';
 import { Button, Pagination } from 'antd';
 
-const Users = ({ usersPage, onPageChanged, follow, unfollow, toggleFollowingProgress }) => {
+const Users = ({ totalUsersCount, pageSize, currentPage, users, followingInProgress, onPageChanged, follow, unfollow }) => {
 
-  const { totalUsersCount, pageSize, currentPage, users, followingInProgress } = usersPage;
+  // let pagesCount = Math.ceil(totalUsersCount / pageSize);
 
-  let pagesCount = Math.ceil(totalUsersCount / pageSize);
-
-  let pages = [];
-  for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i);
-  }
 
 
   return <div>
