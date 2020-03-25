@@ -3,10 +3,8 @@ import './App.css';
 import 'antd/dist/antd.css';
 
 import Navbar from './components/Navbar/Navbar';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
 import { Route, withRouter } from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer';
-import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
 import { connect } from 'react-redux';
@@ -16,6 +14,11 @@ import { Spin } from 'antd';
 import store from './redux/reduxStore';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { withLazySuspense } from './hoc/withLazySuspense';
+
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+
 class App extends Component {
 
   componentDidMount() {
@@ -35,12 +38,10 @@ class App extends Component {
         <Navbar />
         <div className="app-wrapper-content">
 
-          <Route path='/profile/:userId?' render={() =>
-            <ProfileContainer />}
+          <Route path='/profile/:userId?' render={withLazySuspense(ProfileContainer)}
           />
 
-          <Route path='/dialogs' render={() =>
-            <DialogsContainer />}
+          <Route path='/dialogs' render={withLazySuspense(DialogsContainer)}
           />
 
           <Route path='/users' render={() =>
