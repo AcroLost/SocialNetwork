@@ -13,7 +13,9 @@ import { connect } from 'react-redux';
 import { initializeApp } from './redux/appReducer';
 import { compose } from 'redux';
 import { Spin } from 'antd';
-
+import store from './redux/reduxStore';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 class App extends Component {
 
   componentDidMount() {
@@ -61,6 +63,15 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default compose(
+const AppContainer = compose(
   withRouter,
   connect(mapStateToProps, { initializeApp }))(App);
+
+const MainApp = (props) => {
+  return <BrowserRouter>
+    <Provider store={store}>
+      <AppContainer />
+    </Provider>
+  </BrowserRouter>
+}
+export default MainApp;  

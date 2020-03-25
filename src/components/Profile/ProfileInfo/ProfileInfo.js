@@ -3,7 +3,7 @@ import s from './ProfileInfo.module.css';
 import { Spin } from 'antd';
 
 import userPhoto from '../../../image/ava.jpg';
-import ProfileStatusHook from './ProfileStatusHook';
+import ProfileStatus from './ProfileStatus';
 
 const ProfileInfo = ({ profile, updateUserStatus, status }) => {
 
@@ -20,7 +20,7 @@ const ProfileInfo = ({ profile, updateUserStatus, status }) => {
         description
       </div>
 
-      <ProfileStatusHook updateUserStatus={updateUserStatus}
+      <ProfileStatus updateUserStatus={updateUserStatus}
         status={status} />
 
     </div>
