@@ -4,16 +4,16 @@ import s from './FormsControls.module.css';
 
 
 
-export const FormControl = ({ input, meta, ...restProps }) => {
+export const FormControl = ({ input, meta: { touched, error }, children, ...restProps }) => {
 
-    const hasError = meta.touched && meta.error;
+    const hasError = touched && error;
 
     return (
         <div className={s.formControl + ' ' + (hasError && s.error)}>
 
-            {restProps.children}
+            {children}
 
-            {hasError && <p>{meta.error}</p>}
+            {hasError && <p>{error}</p>}
 
         </div>
     );

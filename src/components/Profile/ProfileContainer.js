@@ -18,14 +18,14 @@ class ProfileContainer extends Component {
             }
         }
         this.props.setUserProfile(userId);
-        this.props.setUserStatus(userId);
+        this.props.setUserStatusThunk(userId);
     }
 
     render() {
         return (
             <Profile profile={this.props.profile}
                 status={this.props.status}
-                updateUserStatus={this.props.updateUserStatus} />
+                updateUserStatus={this.props.updateUserStatusThunk} />
         );
     }
 }
@@ -40,23 +40,9 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        setUserProfile: (userId) => {
-            dispatch(setUserProfile(userId))
-        },
-
-        setUserStatus: (userId) => {
-            dispatch(setUserStatusThunk(userId))
-        },
-
-        updateUserStatus: (status) => {
-            dispatch(updateUserStatusThunk(status))
-        }
-    }
-}
-
 export default compose(
-    connect(mapStateToProps, mapDispatchToProps),
+    connect(mapStateToProps,
+        { setUserProfile, setUserStatusThunk, updateUserStatusThunk }),
+
     withRouter
 )(ProfileContainer);

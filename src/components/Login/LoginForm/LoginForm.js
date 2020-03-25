@@ -6,13 +6,13 @@ import { required } from '../../../utils/validators/validators';
 
 import s from '../../../components/common/FormsControls/FormsControls.module.css'
 
-let LoginForm = (props) => {
+let LoginForm = ({ handleSubmit, error }) => {
 
     return (
-        <form onSubmit={props.handleSubmit}>
-            {props.error &&
+        <form onSubmit={handleSubmit}>
+            {error &&
                 <div className={s.errorBlock}>
-                    {props.error}
+                    {error}
                 </div>
             }
             <span>

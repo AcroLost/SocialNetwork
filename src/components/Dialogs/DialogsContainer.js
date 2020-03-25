@@ -13,10 +13,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         sendMessage: (messageText) => {
-            dispatch(sendMessageActionCreator(messageText));
+            dispatch(sendMessageActionCreator(messageText))
         }
     }
 }
+
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),

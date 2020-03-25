@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import 'antd/dist/antd.css';
 
-
 import Navbar from './components/Navbar/Navbar';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import { Route, withRouter } from 'react-router-dom';
