@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Profile from './Profile';
-import { setUserProfile, setUserStatusThunk, updateUserStatusThunk } from '../../redux/profileReducer';
+import { setUserProfile, setUserStatusThunk, updateUserStatusThunk, savePhotoThunk } from '../../redux/profileReducer';
 import { withRouter } from 'react-router-dom';
 
 import { compose } from 'redux';
 
 class ProfileContainer extends Component {
 
-    componentDidMount() {
+    uploadProfile() {
         let userId = this.props.match.params.userId;
 
         if (!userId) {
@@ -21,9 +21,21 @@ class ProfileContainer extends Component {
         this.props.setUserStatusThunk(userId);
     }
 
+    componentDidMount() {
+        this.uploadProfile();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.match.params.userId !== this.props.match.params.userId) {
+            this.uploadProfile();
+        }
+    }
+
     render() {
         return (
-            <Profile profile={this.props.profile}
+            <Profile savePhoto={this.props.savePhotoThunk}
+                isOwner={!this.props.match.params.userId}
+                profile={this.props.profile}
                 status={this.props.status}
                 updateUserStatus={this.props.updateUserStatusThunk} />
         );
@@ -42,7 +54,7 @@ const mapStateToProps = (state) => {
 
 export default compose(
     connect(mapStateToProps,
-        { setUserProfile, setUserStatusThunk, updateUserStatusThunk }),
+        { setUserProfile, setUserStatusThunk, updateUserStatusThunk, savePhotoThunk }),
 
     withRouter
 )(ProfileContainer);

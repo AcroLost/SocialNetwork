@@ -5,7 +5,14 @@ import { Spin } from 'antd';
 import userPhoto from '../../../image/ava.jpg';
 import ProfileStatus from './ProfileStatus';
 
-const ProfileInfo = ({ profile, updateUserStatus, status }) => {
+const ProfileInfo = ({ savePhoto, isOwner, profile, updateUserStatus, status }) => {
+
+  const onPhotoSelect = (event) => {
+    if (event.target.files.length) {
+      savePhoto(event.target.files[0])
+    }
+  }
+
 
   if (!profile) {
     return <Spin size="large" />
@@ -16,13 +23,17 @@ const ProfileInfo = ({ profile, updateUserStatus, status }) => {
       <div className={s.profilePhoto}>
         <img src={profile.photos.large || userPhoto} alt="ava" />
       </div>
-      <div className={s.descriptionBlock}>
-        description
+      <div>
+        {isOwner && <input type="file" onChange={onPhotoSelect} />}
+      </div>
+      <div>
+        <div className={s.descriptionBlock}>
+          description
       </div>
 
-      <ProfileStatus updateUserStatus={updateUserStatus}
-        status={status} />
-
+        <ProfileStatus updateUserStatus={updateUserStatus}
+          status={status} />
+      </div>
     </div>
   )
 }

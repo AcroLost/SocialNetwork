@@ -3,7 +3,7 @@ import './App.css';
 import 'antd/dist/antd.css';
 
 import Navbar from './components/Navbar/Navbar';
-import { Route, withRouter } from 'react-router-dom';
+import { Route, withRouter, HashRouter } from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
@@ -13,7 +13,6 @@ import { compose } from 'redux';
 import { Spin } from 'antd';
 import store from './redux/reduxStore';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
 import { withLazySuspense } from './hoc/withLazySuspense';
 
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
@@ -69,10 +68,10 @@ const AppContainer = compose(
   connect(mapStateToProps, { initializeApp }))(App);
 
 const MainApp = (props) => {
-  return <BrowserRouter>
+  return <HashRouter>
     <Provider store={store}>
       <AppContainer />
     </Provider>
-  </BrowserRouter>
+  </HashRouter>
 }
 export default MainApp;  
