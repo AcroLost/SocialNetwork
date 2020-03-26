@@ -1,4 +1,5 @@
 .profileInfo {
+  display: flex;
   margin: 10px 0 0 10px;
 }
 
@@ -21,4 +22,9 @@
 
 .contact {
   padding-left: 10px;
+}
+
+.description {
+  display: flex;
+  margin-top: 30px;
 }

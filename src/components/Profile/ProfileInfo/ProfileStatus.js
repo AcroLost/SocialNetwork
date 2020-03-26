@@ -26,7 +26,8 @@ const ProfileStatus = (props) => {
 
 
     return (
-        <div>Статус:
+        <div>
+            <b>Статус:</b>
             {!editMode
 
                 ? <span className={s.status}
