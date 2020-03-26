@@ -5,12 +5,15 @@ import AddNewPostForm from './AddNewPostForm/AddNewPostForm';
 
 const MyPosts = React.memo(({ profilePage, addPost }) => {
 
-  const { postsData } = profilePage;
+  const { postsData, profile } = profilePage;
 
   const posts = postsData.map((item) => {
     const { id, message, likesCount } = item;
 
-    return <Post key={id} message={message} likesCount={likesCount} />
+    return <Post key={id}
+      message={message}
+      likesCount={likesCount}
+      profile={profile} />
   });
 
   const onAddPost = (values) => {
