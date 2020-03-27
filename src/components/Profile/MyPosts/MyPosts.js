@@ -22,7 +22,7 @@ const MyPosts = React.memo(({ profilePage, addPost }) => {
 
   return (
     <div className={s.postsBlock}>
-      <h3>My posts</h3>
+      <h3 style={{ fontSize: 22 }}>Мои записи</h3>
 
       <AddNewPostForm onSubmit={onAddPost} />
 

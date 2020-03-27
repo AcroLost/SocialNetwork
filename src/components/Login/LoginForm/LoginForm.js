@@ -17,18 +17,26 @@ let LoginForm = ({ handleSubmit, error, captcha }) => {
                 </div>
             }
             <span>
-                <Field name='email' component={Input}
+                <Field style={{ width: 200 }} name='email' component={Input}
                     placeholder={'Login'} validate={required} />
             </span>
             <span>
-                <Field name='password' component={Input}
+                <Field style={{
+                    width: 200,
+                    marginTop: 10
+                }} name='password' component={Input}
                     placeholder='Password' validate={required}
                     type='password' />
             </span>
             <div>
-                <label>
-                    remember me
-                    <Field name='rememberMe' component={Input} type='checkbox' />
+                <label style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'flex-start',
+                    alignItems: 'flex-start',
+                    marginTop: 7
+                }}>
+                    <Field style={{ marginRight: 5 }} name='rememberMe' component={Input} type='checkbox' /> remember me
                 </label>
             </div>
 
@@ -36,8 +44,15 @@ let LoginForm = ({ handleSubmit, error, captcha }) => {
 
             {captcha && createField("Symbols from image", "captcha", [required], Input)}
 
-            <button>Log in</button>
-        </form>
+            <button style={{
+                padding: '3px 30px',
+                background: 'white',
+                border: '1px solid gray',
+                cursor: 'pointer',
+                marginTop: 7
+            }}>Войти
+            </button>
+        </form >
     );
 }
 

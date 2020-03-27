@@ -9,22 +9,22 @@ const Navbar = ({ sidebar }) => {
 
     return <nav className={s.nav}>
         <div className={s.item}>
-            <NavLink to="/profile" activeClassName={s.activeLink}>Profile</NavLink>
+            <NavLink to="/profile" activeClassName={s.activeLink}>Моя страница</NavLink>
         </div>
         <div className={s.item}>
-            <NavLink to="/dialogs" activeClassName={s.activeLink}>Messages</NavLink>
+            <NavLink to="/dialogs" activeClassName={s.activeLink}>Сообщения</NavLink>
         </div>
         <div className={s.item}>
-            <NavLink to="/users" activeClassName={s.activeLink}>Users</NavLink>
+            <NavLink to="/users" activeClassName={s.activeLink}>Пользователи</NavLink>
         </div>
         <div className={s.item}>
-            <a href="#s">News</a>
+            <a href="#s">Новости</a>
         </div>
         <div className={s.item}>
-            <a href="#s">Music</a>
+            <a href="#s">Музыка</a>
         </div>
         <div className={s.item}>
-            <a href="#s">Settings</a>
+            <a href="#s">Настройки</a>
         </div>
 
         {/* <Friends friends={sidebar.friends} /> */}

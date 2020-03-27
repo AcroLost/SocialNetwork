@@ -15,10 +15,18 @@ const Login = ({ logInUser, isAuth, captchaURL }) => {
     }
 
     return (
-        <div>
-            <h1>Please sign in</h1>
-            <LoginForm onSubmit={onSubmit}
-                captcha={captchaURL} />
+        <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            padding: '20px 0',
+            textAlign: 'center'
+        }}>
+            <div>
+                <h1>Please sign in</h1>
+
+                <LoginForm onSubmit={onSubmit}
+                    captcha={captchaURL} />
+            </div>
         </div>
     );
 }

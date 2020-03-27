@@ -8,7 +8,7 @@ const Post = ({ message, likesCount, profile }) => {
   return (
     <div className={s.item}>
       <img src={profile.photos.small || userPhoto} alt='ava' />
-      {message}
+      <span style={{ fontSize: 15, marginLeft: 10 }}>{message}</span>
       <div>
         <span>like: {likesCount}</span>
       </div>

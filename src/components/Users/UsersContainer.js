@@ -35,7 +35,12 @@ class UsersContainer extends React.Component {
         const { users, totalUsersCount, pageSize, currentPage, followingInProgress, isLoading, follow, unfollow, toggleFollowingProgress } = this.props
 
         if (isLoading) {
-            return <Spin size="large" />
+            return <Spin style={{
+                display: 'flex',
+                justifyContent: 'center',
+                height: 300,
+                alignItems: 'center'
+            }} size="large" />
         }
 
         return (

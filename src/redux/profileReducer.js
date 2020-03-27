@@ -5,13 +5,13 @@ const ADD_POST = 'profile/ADD_POST',
     SET_USER_PROFILE = 'profile/SET_USER_PROFILE',
     SET_USER_STATUS = 'profile/SET_USER_STATUS',
     DELETE_POST = 'profile/DELETE_POST',
-    SAVE_PHOTO = 'profile/SAVE_PHOTO';
+    SAVE_PHOTO = 'profile/SAVE_PHOTO'
 
 const initialState = {
 
     postsData: [
-        { id: 1, message: 'Hi', likesCount: 10 },
-        { id: 2, message: 'first post', likesCount: 15 }
+        { id: 1, message: 'Салют', likesCount: 10 },
+        { id: 2, message: 'Мой первый пост', likesCount: 15 }
     ],
     profile: null,
     status: ''
@@ -62,7 +62,6 @@ const profileReducer = (state = initialState, action) => {
                 profile: { ...state.profile, photos: action.photos }
             }
 
-
         default:
             return state;
 
@@ -111,7 +110,6 @@ export const setUserStatusThunk = (userId) => {
 }
 
 export const updateUserStatusThunk = (status) => {
-
     return async (dispatch) => {
 
         const res = await profileAPI.updateUserStatus(status)

@@ -3,14 +3,14 @@ import './App.css';
 import 'antd/dist/antd.css';
 
 import Navbar from './components/Navbar/Navbar';
-import { Route, withRouter, HashRouter } from 'react-router-dom';
+import { Route, withRouter, Switch, BrowserRouter, Redirect } from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
 import { connect } from 'react-redux';
 import { initializeApp } from './redux/appReducer';
 import { compose } from 'redux';
-import { Spin } from 'antd';
+import { Spin, Row, Col } from 'antd';
 import store from './redux/reduxStore';
 import { Provider } from 'react-redux';
 import { withLazySuspense } from './hoc/withLazySuspense';
@@ -21,38 +21,69 @@ const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsCo
 class App extends Component {
 
   componentDidMount() {
-    this.props.initializeApp()
+    this.props.initializeApp();
   }
 
   render() {
 
     if (!this.props.initialized) {
-      return <Spin size='large' />
+      return <Spin style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh'
+      }} size='large' />
     }
 
     return (
-
       <div className='app-wrapper'>
-        <HeaderContainer />
-        <Navbar />
-        <div className="app-wrapper-content">
+        <Row>
+          <Col>
+            <HeaderContainer />
+          </Col>
+        </Row>
 
-          <Route path='/profile/:userId?' render={withLazySuspense(ProfileContainer)}
-          />
+        <Row justify="center">
+          <Col xl={3}>
+            <Navbar />
+          </Col>
 
-          <Route path='/dialogs' render={withLazySuspense(DialogsContainer)}
-          />
+          <Col xl={16}>
+            <div className="app-wrapper-content">
+              <Switch>
 
-          <Route path='/users' render={() =>
-            <UsersContainer />}
-          />
+                <Route path='/profile/:userId?' render={withLazySuspense(ProfileContainer)}
+                />
 
-          <Route path='/login' render={() =>
-            <Login />}
-          />
+                <Route path='/dialogs' render={withLazySuspense(DialogsContainer)}
+                />
 
-        </div>
-      </div>
+                <Route path='/users' render={() =>
+                  <UsersContainer />}
+                />
+
+                <Route path='/login' render={() =>
+                  <Login />}
+                />
+
+                <Route exact path='/'
+                  render={() => <Redirect to='/profile' />} />
+
+                <Route path='*' render={() =>
+                  <div style={{
+                    height: 190,
+                    display: 'flex',
+                    fontSize: 26,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }
+                  }>Страница не найдена =(</div>} />
+
+              </Switch>
+            </div>
+          </Col>
+        </Row>
+      </div >
     );
   }
 }
@@ -68,10 +99,10 @@ const AppContainer = compose(
   connect(mapStateToProps, { initializeApp }))(App);
 
 const MainApp = (props) => {
-  return <HashRouter>
+  return <BrowserRouter>
     <Provider store={store}>
       <AppContainer />
     </Provider>
-  </HashRouter>
+  </BrowserRouter>
 }
 export default MainApp;  

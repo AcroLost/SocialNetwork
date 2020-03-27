@@ -28,17 +28,25 @@ const ProfileStatus = (props) => {
     return (
         <div>
             <b>Статус:</b>
-            {!editMode
+            {props.isOwner
 
-                ? <span className={s.status}
-                    onClick={activateMode}> {props.status || "Status will be here"}</span>
+                ? !editMode
 
-                : <input autoFocus
-                    onBlur={deactivateMode}
-                    value={status}
-                    onChange={changeStatus}
-                    placeholder="Status will be here" />
+                    ? <span className={s.status}
+                        onClick={activateMode}> {props.status || "Status will be here"}</span>
+
+                    : <input autoFocus
+                        onBlur={deactivateMode}
+                        value={status}
+                        onChange={changeStatus}
+                        placeholder="Status will be here" />
+
+                : <span className={s.statusOther}>
+                    {props.status || "Status will be here"}
+                </span>
             }
+
+
         </div>
     );
 }

@@ -1,6 +1,7 @@
 .profileInfo {
   display: flex;
   margin: 10px 0 0 10px;
+  padding-top: 10px;
 }
 
 .profilePhoto img {
@@ -9,22 +10,33 @@
   border-radius: 1%;
 }
 
-.descriptionBlock {
-  padding: 10px;
-}
-
 .status {
+  line-height: 1.9;
   cursor: pointer;
+  border-bottom: 1px solid #000;
 }
 .status:hover {
   background-color: rgb(221, 210, 210);
 }
 
+.statusOther {
+  line-height: 1.9;
+  border-bottom: 1px solid #000;
+}
+
 .contact {
-  padding-left: 10px;
+  padding-left: 15px;
 }
 
 .description {
   display: flex;
-  margin-top: 30px;
+  margin-top: 15px;
+}
+
+.fullName {
+  font-size: 21px;
+}
+
+.aboutMe {
+  width: 300px;
 }

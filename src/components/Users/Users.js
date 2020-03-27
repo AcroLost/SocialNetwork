@@ -6,7 +6,7 @@ const Users = ({ totalUsersCount, currentPage, users, followingInProgress, onPag
 
 
   return <div>
-    <div>
+    <div style={{ padding: 10 }}>
       <Pagination current={currentPage}
         onChange={onPageChanged}
         total={totalUsersCount} />

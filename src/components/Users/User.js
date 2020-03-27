@@ -21,24 +21,22 @@ const User = ({ user, followingInProgress, follow, unfollow }) => {
               loading={followingInProgress.some(id => id === user.id)} onClick={() => {
 
                 unfollow(user.id)
-              }}>Unfollow</Button>
+              }}>Отписаться</Button>
 
             : <Button type="primary"
               loading={followingInProgress.some(id => id === user.id)} onClick={() => {
 
                 follow(user.id)
-              }}>Follow</Button>}
+              }}>Добавить</Button>}
 
         </p>
       </div>
 
-      <div>
-        <p>{user.name}</p>
+      <div style={{ marginLeft: 300, fontSize: 16 }}>
+        <NavLink to={'/profile/' + user.id}>
+          <p className={s.userName}>{user.name}</p>
+        </NavLink>
         <p>{user.status}</p>
-      </div>
-      <div>
-        <p>{"user.location.country"}</p>
-        <p>{"user.location.city"}</p>
       </div>
 
     </div>

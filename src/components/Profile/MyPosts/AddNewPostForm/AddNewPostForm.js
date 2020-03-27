@@ -5,6 +5,7 @@ import { required, maxLength } from '../../../../utils/validators/validators';
 import { Textarea } from '../../../common/FormsControls/FormsControls';
 
 
+
 const maxLength15 = maxLength(15);
 
 let AddNewPostForm = (props) => {
@@ -13,13 +14,22 @@ let AddNewPostForm = (props) => {
 
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field name='postText'
+                <Field style={{ width: 300 }}
+                    name='postText'
                     component={Textarea}
                     validate={[required, maxLength15]}
-                    placeholder='Type your post' />
+                    placeholder='Введите текст поста' />
             </div>
 
-            <button>Добавить пост</button>
+            <button style={
+                {
+                    padding: '3px 20px',
+                    background: 'white',
+                    border: '1px solid gray',
+                    cursor: 'pointer'
+                }}>
+                Добавить пост
+            </button>
         </form>
     );
 }

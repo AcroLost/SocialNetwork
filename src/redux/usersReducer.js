@@ -89,7 +89,7 @@ export const getUsers = (currentPage, pageSize) => {
     return async (dispatch) => {
         dispatch(isLoadingAC(true));
 
-        const data = await usersAPI.getUsers(currentPage, pageSize)
+        const data = await usersAPI.getUsers(currentPage, pageSize);
 
         dispatch(isLoadingAC(false));
         dispatch(setUsersAC(data.items));

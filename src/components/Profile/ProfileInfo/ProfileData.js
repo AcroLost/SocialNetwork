@@ -3,27 +3,30 @@ import s from './ProfileInfo.module.css';
 import { Button } from 'antd';
 
 const ProfileData = ({ profile, isOwner, onEditMode }) => {
+
     return <div className={s.description}>
 
         <div>
-            <p><b>Full name:</b> {profile.fullName}</p>
-            <p><b>Looking for a job:</b> {profile.lookingFoAJob ? "yes" : "no"}</p>
+            <p className={s.fullName}>{profile.fullName}</p>
+            <p><b>В поиске работы:</b> {profile.lookingForAJob ? "да" : "нет"}</p>
 
-            {profile.lookingFoAJob &&
+            {profile.lookingForAJob &&
                 <p>
-                    My professional skills: {profile.lookingFoAJobDescription}
+                    <b>Профессиональные навыки:</b> {profile.lookingForAJobDescription}
                 </p>
             }
 
-            <p><b>About me:</b> {profile.aboutMe}</p>
+            <p className={s.aboutMe}><b>О себе:</b> {profile.aboutMe}</p>
+
+            {isOwner && <Button type="default" onClick={onEditMode}>Редактировать описание </Button>}
         </div>
         <div style={{ marginLeft: 100 }}>
             <div>
-                <b>Contacts:</b> {Object.keys(profile.contacts).map((key) => {
+                <b>Контакты:</b> {Object.keys(profile.contacts).map((key) => {
                     return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]} />
                 })}
             </div>
-            {isOwner && <Button type="default" onClick={onEditMode}>Редактировать описание </Button>}
+
         </div>
     </div>
 }

@@ -3,19 +3,14 @@
   padding: 0;
 }
 
-.app-wrapper {
-  margin: 0 auto;
-  display: grid;
-  width: 1200px;
-  grid-template-areas:
-  "h h"
-  "n c";
+html body {
+  background-color: rgb(243, 237, 237);
+}
 
-  grid-template-rows: 60px 1fr;
-  grid-template-columns: 2fr 10fr;
+.app-wrapper {
 }
 
 .app-wrapper-content {
-    grid-area: c;
-    background-color: skyblue;
+  margin: 10px;
+    background-color: white;
 }

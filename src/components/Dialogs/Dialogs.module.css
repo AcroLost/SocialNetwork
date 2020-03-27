@@ -8,14 +8,12 @@
 }
 
 .dialogs .dialogsItems .dialog a {
-  color: white;
+  color: gray;
   text-decoration: none;
 }
 .dialogs .dialogsItems .dialog a.active {
-  color: gold;
+  color: rgb(169, 216, 176);
 }
-
-
 
 .messages {
   padding: 10px;

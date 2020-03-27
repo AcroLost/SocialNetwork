@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 const Header = ({ auth, logOutUser }) => {
 
-    const { email, login, isAuth } = auth;
+    const { login, isAuth } = auth;
 
     return <header className={s.header}>
         <img src='https://upload.wikimedia.org/wikipedia/commons/b/be/Lineage_OS_Logo.png' alt="logo" />
