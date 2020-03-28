@@ -55,7 +55,10 @@ const mapStateToProps = (state) => {
 
 export default compose(
     connect(mapStateToProps,
-        { setUserProfile, setUserStatusThunk, updateUserStatusThunk, savePhotoThunk, saveProfileThunk }),
+        {
+            setUserProfile, setUserStatusThunk, updateUserStatusThunk,
+            savePhotoThunk, saveProfileThunk
+        }),
 
     withRouter
 )(ProfileContainer);

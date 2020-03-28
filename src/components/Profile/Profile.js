@@ -43,7 +43,7 @@ const Profile = ({ saveProfile, savePhoto, profile, updateUserStatus, status, is
         editMode={editMode} />
 
       {!editMode &&
-        <MyPostsContainer />
+        <MyPostsContainer isOwner={isOwner} />
       }
     </div>
   )

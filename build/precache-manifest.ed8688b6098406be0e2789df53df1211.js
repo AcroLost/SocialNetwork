@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f1fc25c396472d091ea37c07123a2e8b",
+    "revision": "174f0197bc199b6dc261b8df2d9c89b5",
     "url": "/SocialNetwork/index.html"
   },
   {
-    "revision": "c1ada04004764cb24a46",
+    "revision": "120bf08a92053d715400",
     "url": "/SocialNetwork/static/css/2.4b6e3ef2.chunk.css"
   },
   {
@@ -12,36 +12,36 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/SocialNetwork/static/css/3.ae9c70e5.chunk.css"
   },
   {
-    "revision": "47ee51ebbb1c1a7f0b87",
+    "revision": "a332b3b6227c163d1e6d",
     "url": "/SocialNetwork/static/css/4.531b296b.chunk.css"
   },
   {
-    "revision": "7832ab723858e4fdf30c",
+    "revision": "24e8af4b81099bcc047e",
     "url": "/SocialNetwork/static/css/main.a50ffe1f.chunk.css"
   },
   {
-    "revision": "c1ada04004764cb24a46",
-    "url": "/SocialNetwork/static/js/2.80f5a513.chunk.js"
+    "revision": "120bf08a92053d715400",
+    "url": "/SocialNetwork/static/js/2.d1be254f.chunk.js"
   },
   {
     "revision": "eff3b4d7e4bb0087ce53139cd90bc880",
-    "url": "/SocialNetwork/static/js/2.80f5a513.chunk.js.LICENSE.txt"
+    "url": "/SocialNetwork/static/js/2.d1be254f.chunk.js.LICENSE.txt"
   },
   {
     "revision": "e23b17d8292822ca4689",
     "url": "/SocialNetwork/static/js/3.32ffd240.chunk.js"
   },
   {
-    "revision": "47ee51ebbb1c1a7f0b87",
-    "url": "/SocialNetwork/static/js/4.60ecd56d.chunk.js"
+    "revision": "a332b3b6227c163d1e6d",
+    "url": "/SocialNetwork/static/js/4.d8e7653d.chunk.js"
   },
   {
-    "revision": "7832ab723858e4fdf30c",
-    "url": "/SocialNetwork/static/js/main.f6ca62b1.chunk.js"
+    "revision": "24e8af4b81099bcc047e",
+    "url": "/SocialNetwork/static/js/main.04dd077f.chunk.js"
   },
   {
-    "revision": "ef747515037fb3a73d2a",
-    "url": "/SocialNetwork/static/js/runtime-main.20c6751d.js"
+    "revision": "956dc7d39a3f510daf08",
+    "url": "/SocialNetwork/static/js/runtime-main.84cbe3e7.js"
   },
   {
     "revision": "e4a4fd5a40918fff19ef52f555f67515",

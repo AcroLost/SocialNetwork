@@ -3,7 +3,7 @@ import './App.css';
 import 'antd/dist/antd.css';
 
 import Navbar from './components/Navbar/Navbar';
-import { Route, withRouter, Switch, BrowserRouter, Redirect } from 'react-router-dom';
+import { Route, withRouter, Switch, BrowserRouter, Redirect, HashRouter } from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
@@ -99,10 +99,10 @@ const AppContainer = compose(
   connect(mapStateToProps, { initializeApp }))(App);
 
 const MainApp = (props) => {
-  return <BrowserRouter>
+  return <HashRouter>
     <Provider store={store}>
       <AppContainer />
     </Provider>
-  </BrowserRouter>
+  </HashRouter>
 }
 export default MainApp;  
