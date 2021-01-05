@@ -5,7 +5,7 @@
   "homepage": "https://acrolost.github.io/SocialNetwork",
   "dependencies": {
     "antd": "^4.0.3",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-redux": "^7.2.0",
